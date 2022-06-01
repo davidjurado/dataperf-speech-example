@@ -3,3 +3,6 @@ pyyaml
 fire
 sklearn
 pandas
+typer
+gdown
+tqdm
