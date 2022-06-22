@@ -28,9 +28,7 @@ class EvaluateTask:
     def run(eval_path: str, log_path: str) -> None:
 
         env = os.environ.copy()
-        env.update(
-            {"eval_path": eval_path, "log_path": log_path}
-        )
+        env.update({"eval_path": eval_path, "log_path": log_path})
 
         process = subprocess.Popen("./run_evaluate.sh", cwd=".", env=env)
         process.wait()

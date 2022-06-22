@@ -24,10 +24,7 @@ def main():
         help="File containing parameters for the download",
     )
     parser.add_argument(
-        "--output_path",
-        type=str,
-        required=True,
-        help="Path where data will be stored",
+        "--output_path", type=str, required=True, help="Path where data will be stored",
     )
     args = parser.parse_args()
 
@@ -38,13 +35,13 @@ def main():
     dataset_url = params["dataset_url"]
     file_name = "dataperf-vision-selection-resources.zip"
 
-    #download_file(dataset_url, output_path, file_name)
+    # download_file(dataset_url, output_path, file_name)
 
     """with zipfile.ZipFile(os.path.join(output_path, file_name), 'r') as zip_ref:
         zip_ref.extractall(output_path)"""
 
     with zipfile.ZipFile(os.path.join(output_path, file_name)) as zf:
-        for member in tqdm(zf.infolist(), desc='Extracting '):
+        for member in tqdm(zf.infolist(), desc="Extracting "):
             try:
                 zf.extract(member, output_path)
             except zipfile.error as e:
