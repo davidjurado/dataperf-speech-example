@@ -35,7 +35,7 @@ def main():
     dataset_url = params["dataset_url"]
     file_name = "dataperf-vision-selection-resources.zip"
 
-    # download_file(dataset_url, output_path, file_name)
+    download_file(dataset_url, output_path, file_name)
 
     """with zipfile.ZipFile(os.path.join(output_path, file_name), 'r') as zip_ref:
         zip_ref.extractall(output_path)"""
