@@ -1,10 +1,11 @@
-FROM python:3.9-slim
+FROM ubuntu:18.04
 
-RUN apt update -y
-RUN apt install default-jdk -y
+RUN apt-get update && apt-get install -y \
+    software-properties-common
+RUN apt-get install -y python3.8 python3-pip
 
 COPY requirements.txt /app/requirements.txt
-RUN pip install -r /app/requirements.txt
+RUN pip3 install -r /app/requirements.txt
 
 COPY *.py /app/
 COPY *.yaml /app/
@@ -12,4 +13,4 @@ COPY *.sh /app/
 
 WORKDIR /app/
 RUN chmod +x /app/run_evaluate.sh
-ENTRYPOINT ["python", "/app/mlcube.py"]
+ENTRYPOINT ["python3", "/app/mlcube.py"]
