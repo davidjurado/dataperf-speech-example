@@ -2,9 +2,10 @@
 import os
 import typer
 import subprocess
+from selection import Predictor
 
 
-app = typer.Typer()
+typer_app = typer.Typer()
 
 
 class DownloadTask:
@@ -21,6 +22,17 @@ class DownloadTask:
         process.wait()
 
 
+class SelectTask:
+    """Run select algorithm"""
+
+    @staticmethod
+    def run(input_path: str, embeddings_path: str, copy_path: str, output_path: str) -> None:
+
+        print("Creating predictor")
+        predictor = Predictor(embeddings_path)
+        predictor.closest_and_furthest(input_path, output_path, copy_path)
+        
+        
 class EvaluateTask:
     """Execute evaluation script"""
 
@@ -34,15 +46,24 @@ class EvaluateTask:
         process.wait()
 
 
-@app.command("download")
+@typer_app.command("download")
 def download(
     parameters_file: str = typer.Option(..., "--parameters_file"),
     output_path: str = typer.Option(..., "--output_path"),
 ):
     DownloadTask.run(parameters_file, output_path)
 
+@typer_app.command("select")
+def select(
+    input_path: str = typer.Option(..., "--input_path"),
+    embeddings_path: str = typer.Option(..., "--embeddings_path"),
+    copy_path: str = typer.Option(..., "--copy_path"),
+    output_path: str = typer.Option(..., "--output_path"),
+):
+    SelectTask.run(input_path, embeddings_path, copy_path, output_path)
 
-@app.command("evaluate")
+
+@typer_app.command("evaluate")
 def evaluate(
     eval_path: str = typer.Option(..., "--eval_path"),
     log_path: str = typer.Option(..., "--log_path"),
@@ -51,4 +72,4 @@ def evaluate(
 
 
 if __name__ == "__main__":
-    app()
+    typer_app()

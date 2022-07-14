@@ -21,6 +21,16 @@ tasks:
       inputs: { parameters_file: { type: file, default: parameters.yaml } }
       outputs: { output_path: data/ }
 
+  select:
+    # Run selection script
+    parameters:
+      inputs: { 
+        input_path: { type: file, default: data/dataperf-vision-selection-resources/train_sets/random_500.csv },
+        embeddings_path: { type: file, default: data/dataperf-vision-selection-resources/embeddings/train_emb_256_dataperf.parquet},
+        copy_path: data/dataperf-vision-selection-resources/original_sets/
+        }
+      outputs: { output_path: { type: file, default: data/selection_output.csv } }
+
   evaluate:
     # Perfom evaluation
     parameters:
