@@ -11,7 +11,7 @@ class Predictor:
 
     
     def read_parquet(self, path:str):
-        return pd.read_parquet(path)
+        return pd.read_parquet(path, engine='pyarrow', use_threads=True)
     
     def similarity(self, centroid, n_closest, m_furthest):
         simmilarity = np.dot(self.embeddings_vect,centroid)/(np.linalg.norm(self.embeddings_vect,axis=1)*np.linalg.norm(centroid))
