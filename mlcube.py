@@ -1,9 +1,11 @@
 """MLCube handler file"""
 import os
-import typer
 import subprocess
-from selection import Predictor
 
+import typer
+import yaml
+
+from selection import Predictor
 
 typer_app = typer.Typer()
 
@@ -26,13 +28,20 @@ class SelectTask:
     """Run select algorithm"""
 
     @staticmethod
-    def run(input_path: str, embeddings_path: str, copy_path: str, output_path: str) -> None:
+    def run(
+        input_path: str, embeddings_path: str, parameters_file: str, output_path: str
+    ) -> None:
+
+        with open(parameters_file, "r") as f:
+            params = yaml.full_load(f)
 
         print("Creating predictor")
         predictor = Predictor(embeddings_path)
-        predictor.closest_and_furthest(input_path, output_path, copy_path)
-        
-        
+        predictor.closest_and_furthest(
+            input_path, output_path, params["n_closest"], params["n_random"]
+        )
+
+
 class EvaluateTask:
     """Execute evaluation script"""
 
@@ -53,14 +62,15 @@ def download(
 ):
     DownloadTask.run(parameters_file, output_path)
 
+
 @typer_app.command("select")
 def select(
     input_path: str = typer.Option(..., "--input_path"),
     embeddings_path: str = typer.Option(..., "--embeddings_path"),
-    copy_path: str = typer.Option(..., "--copy_path"),
+    parameters_file: str = typer.Option(..., "--parameters_file"),
     output_path: str = typer.Option(..., "--output_path"),
 ):
-    SelectTask.run(input_path, embeddings_path, copy_path, output_path)
+    SelectTask.run(input_path, embeddings_path, parameters_file, output_path)
 
 
 @typer_app.command("evaluate")
