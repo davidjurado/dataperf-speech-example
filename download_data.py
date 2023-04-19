@@ -37,9 +37,6 @@ def main():
 
     download_file(dataset_url, output_path, file_name)
 
-    """with zipfile.ZipFile(os.path.join(output_path, file_name), 'r') as zip_ref:
-        zip_ref.extractall(output_path)"""
-
     with zipfile.ZipFile(os.path.join(output_path, file_name)) as zf:
         for member in tqdm(zf.infolist(), desc="Extracting "):
             try:

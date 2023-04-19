@@ -59,6 +59,8 @@ A template filesystem with the following structure is provided in the repo. Move
 unzip dataperf-vision-selection-resources.zip
 mv dataperf-vision-selection-resources/embeddings/* dataperf-vision-selection/data/embeddings/
 mv dataperf-vision-selection-resources/test_sets/* dataperf-vision-selection/data/test_sets/
+mv dataperf-vision-selection-resources/train_sets/* dataperf-vision-selection/data/train_sets/
+mv dataperf-vision-selection-resources/results/* dataperf-vision-selection/data/results/
 ```
 
 The resulting filesystem in the repo should look as follows
